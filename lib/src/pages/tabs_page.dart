@@ -53,7 +53,10 @@ class _Paginas extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navegacionModel = Provider.of<_NavegacionModel>(context);
+
     return PageView(
+      controller: navegacionModel._pageController,
       //physics: const BouncingScrollPhysics(),
       physics: const NeverScrollableScrollPhysics(),
       children: <Widget>[
@@ -70,11 +73,17 @@ class _Paginas extends StatelessWidget {
 
 class _NavegacionModel with ChangeNotifier {
   int _paginaActual = 0;
+  final PageController _pageController = PageController();
 
-  int get paginaActual => this._paginaActual;
+  int get paginaActual => _paginaActual;
 
   set paginaActual(int valor) {
-    this._paginaActual = valor;
+    _paginaActual = valor;
+
+    _pageController.animateToPage(valor,
+        duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
     notifyListeners();
   }
+
+  PageController get pageController => _pageController;
 }
