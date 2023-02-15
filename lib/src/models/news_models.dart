@@ -59,9 +59,9 @@ class Article {
         source: Source.fromMap(json["source"]),
         author: json["author"],
         title: json["title"],
-        description: json["description"],
+        description: json["description"] ?? '',
         url: json["url"],
-        urlToImage: json["urlToImage"],
+        urlToImage: json["urlToImage"] ?? '',
         publishedAt: DateTime.parse(json["publishedAt"]),
         content: json["content"],
       );

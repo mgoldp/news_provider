@@ -46,6 +46,12 @@ class _Noticia extends StatelessWidget {
         _TarjetaImagen(
           noticia: noticia,
         ),
+        _TarjetaBody(noticia),
+        _TarjetaBotones(),
+        const SizedBox(
+          height: 10,
+        ),
+        const Divider()
       ],
     );
   }
@@ -112,6 +118,74 @@ class _TarjetaImagen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('hola mundo');
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(50),
+          bottomRight: Radius.circular(50),
+        ),
+        child: Container(
+          child: (noticia.urlToImage != '')
+              ? FadeInImage(
+                  placeholder: const AssetImage('assets/img/giphy.gif'),
+                  image: NetworkImage(noticia.urlToImage),
+                )
+              : const Image(
+                  image: AssetImage('assets/img/no-image.png'),
+                ),
+        ),
+      ),
+    );
+  }
+}
+
+class _TarjetaBody extends StatelessWidget {
+  const _TarjetaBody(
+    this.noticia,
+  );
+
+  final Article noticia;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Text(noticia.description),
+    );
+  }
+}
+
+class _TarjetaBotones extends StatelessWidget {
+  const _TarjetaBotones({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          RawMaterialButton(
+            onPressed: () {},
+            fillColor: miTema.colorScheme.secondary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const Icon(Icons.star_border),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          RawMaterialButton(
+            onPressed: () {},
+            fillColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const Icon(Icons.more),
+          ),
+        ],
+      ),
+    );
   }
 }
