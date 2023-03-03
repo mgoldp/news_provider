@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_provider/src/models/category_model.dart';
-import 'package:news_provider/src/models/news_models.dart';
 import 'package:news_provider/src/services/news_service.dart';
+import 'package:news_provider/src/theme/tema.dart';
 import 'package:provider/provider.dart';
 
 class Tab2Page extends StatelessWidget {
@@ -64,6 +64,8 @@ class _CategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final newsService = Provider.of<NewsService>(context);
+
     return GestureDetector(
       onTap: () {
         final newsService = Provider.of<NewsService>(context, listen: false);
@@ -81,7 +83,9 @@ class _CategoryButton extends StatelessWidget {
         ),
         child: Icon(
           category.icon,
-          color: Colors.black54,
+          color: (newsService.selectedCategory == category.name)
+              ? miTema.colorScheme.secondary
+              : Colors.black54,
         ),
       ),
     );
